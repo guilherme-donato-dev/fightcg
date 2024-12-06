@@ -1,0 +1,23 @@
+<!-- templates/lutas/detalhes_luta.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ luta.lutador1 }} vs {{ luta.lutador2 }}</h1>
+<p><strong>Evento:</strong> {{ luta.evento.nome }}</p>
+<p><strong>Data:</strong> {{ luta.evento.data|date:"d/m/Y H:i" }}</p>
+<p><strong>Local:</strong> {{ luta.evento.local }}</p>
+
+<h3>Odds de Aposta</h3>
+<p><strong>{{ luta.lutador1 }}:</strong> {{ odds.lutador1 }}</p>
+<p><strong>{{ luta.lutador2 }}:</strong> {{ odds.lutador2 }}</p>
+
+<h3>Equipe Técnica</h3>
+<a href="{% url 'equipe_tecnica' luta.pk %}">Ver Equipe Técnica</a>
+
+<h3>Comentários</h3>
+<ul>
+    {% for comentario in luta.comentario_set.all %}
+        <li><strong>{{ comentario.usuario.username }}:</strong> {{ comentario.texto }} ({{ comentario.criado_em|date:"d/m/Y H:i" }})</li>
+    {% endfor %}
+</ul>
+{% endblock %}

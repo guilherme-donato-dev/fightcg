@@ -16,7 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
+from fightcg.views import LutaDetailView, EquipeTecnicaView, LutasListView, HistoriaLutadoresView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-]
+    path('lutas/', LutasListView.as_view(), name='lista_lutas'),
+    path('lutas/<int:pk>/', LutaDetailView.as_view(), name='detalhes_luta'),
+    path('lutas/<int:pk>/equipe-tecnica/', EquipeTecnicaView.as_view(), name='equipe_tecnica'),
+    path('lutadores/', HistoriaLutadoresView.as_view(), name='historia_lutadores'),
+
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

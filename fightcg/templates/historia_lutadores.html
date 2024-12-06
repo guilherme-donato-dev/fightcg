@@ -1,0 +1,18 @@
+<!-- templates/lutas/historia_lutadores.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>História dos Lutadores</h1>
+<div style="display: flex; flex-wrap: wrap; gap: 20px;">
+    {% for lutador in lutadores %}
+        <div style="border: 1px solid #ccc; padding: 15px; width: 300px;">
+            <img src="{{ lutador.foto.url }}" alt="{{ lutador.nome }}" style="width: 100%; height: auto; border-radius: 10px;">
+            <h2>{{ lutador.nome }} <small>({{ lutador.apelido }})</small></h2>
+            <p><strong>Idade:</strong> {{ lutador.idade }}</p>
+            <p><strong>Altura:</strong> {{ lutador.altura }}m</p>
+            <p><strong>Peso:</strong> {{ lutador.peso }}kg</p>
+            <p><strong>História:</strong> {{ lutador.descricao }}</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

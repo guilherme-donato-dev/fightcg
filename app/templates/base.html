@@ -1,0 +1,82 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Meu Site de Lutas{% endblock %}</title>
+    <style>
+        /* Estilo da Navbar */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        nav {
+            background-color: #8B0000; /* Vermelho escuro */
+            overflow: hidden;
+            padding: 10px 20px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 14px 20px;
+            display: inline-block;
+            text-align: center;
+        }
+
+        nav a:hover {
+            background-color: #FF4500; /* Vermelho vibrante */
+        }
+
+        nav .navbar-brand {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-right: auto;
+        }
+
+        nav .nav-links {
+            display: flex;
+        }
+
+        @media screen and (max-width: 768px) {
+            nav .nav-links {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav a {
+                padding: 10px;
+            }
+        }
+
+        /* Estilo do conteúdo */
+        main {
+            padding: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="{% url 'lista_lutas' %}" class="navbar-brand">Lutas</a>
+        <div class="nav-links">
+            <a href="{% url 'lista_lutas' %}">Próximas Lutas</a>
+            <a href="{% url 'historia_lutadores' %}">Sobre os Lutadores</a>
+        </div>
+    </nav>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer>
+        <p>&copy; 2024 - Fight dos amigo</p>
+    </footer>
+</body>
+</html>

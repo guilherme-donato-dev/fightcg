@@ -16,10 +16,12 @@ class Lutador(models.Model):
     idade = models.PositiveIntegerField()
     peso = models.FloatField()
     altura = models.FloatField()
+    descricao = models.TextField(null=True)  # Campo para a história
+    foto = models.ImageField(upload_to='lutadores/', blank=True, null=True)  # Foto do lutador
     vitorias = models.PositiveIntegerField(default=0)
     derrotas = models.PositiveIntegerField(default=0)
     empates = models.PositiveIntegerField(default=0)
-    categoria = models.ForeignKey(Categoria, on_delete=models.SET_NULL, null=True)
+    categoria = models.ForeignKey('Categoria', on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return self.nome

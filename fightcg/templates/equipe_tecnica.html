@@ -1,0 +1,22 @@
+<!-- templates/lutas/equipe_tecnica.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Equipe Técnica</h1>
+
+<h2>{{ lutador1 }}</h2>
+<ul>
+    {% for membro in equipe_tecnica1 %}
+        <li><strong>{{ membro.nome }}</strong> - {{ membro.funcao }}</li>
+    {% endfor %}
+</ul>
+
+<h2>{{ lutador2 }}</h2>
+<ul>
+    {% for membro in equipe_tecnica2 %}
+        <li><strong>{{ membro.nome }}</strong> - {{ membro.funcao }}</li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'detalhes_luta' lutador1.pk %}">Voltar aos detalhes da luta</a>
+{% endblock %}

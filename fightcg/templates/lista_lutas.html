@@ -1,0 +1,16 @@
+<!-- templates/lutas/lista_lutas.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Próximas Lutas</h1>
+<ul>
+    {% for luta in lutas %}
+        <li>
+            <a href="{% url 'detalhes_luta' luta.pk %}">
+                {{ luta.lutador1 }} vs {{ luta.lutador2 }} - {{ luta.evento.nome }}
+            </a> ({{ luta.evento.data|date:"d/m/Y H:i" }})
+        </li>
+    {% endfor %}
+
+{% endblock %}
+
