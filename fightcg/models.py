@@ -31,6 +31,7 @@ class Evento(models.Model):
     nome = models.CharField(max_length=200)
     data = models.DateTimeField()
     local = models.CharField(max_length=200)
+    
 
     def __str__(self):
         return self.nome
@@ -42,6 +43,7 @@ class Luta(models.Model):
     lutador2 = models.ForeignKey(Lutador, on_delete=models.CASCADE, related_name='lutas_como_lutador2')
     vencedor = models.ForeignKey(Lutador, on_delete=models.SET_NULL, null=True, blank=True, related_name='lutas_vencidas')  # Altere o related_name aqui
     round_final = models.PositiveIntegerField(blank=True, null=True)
+    foto = models.ImageField(upload_to='lutas/', blank=True, null=True)
     metodo_vitoria = models.CharField(
         max_length=100, 
         choices=[

@@ -56,3 +56,10 @@ class HistoriaLutadoresView(ListView):
     template_name = 'historia_lutadores.html'
     context_object_name = 'lutadores'
 
+    def get_queryset(self):
+        lutador_id = self.request.GET.get('lutador')
+        if lutador_id:
+            return Lutador.objects.filter(pk=lutador_id)
+        return Lutador.objects.all()
+
+

@@ -1,23 +1,157 @@
-<!-- templates/lutas/detalhes_luta.html -->
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block content %}
-<h1>{{ luta.lutador1 }} vs {{ luta.lutador2 }}</h1>
-<p><strong>Evento:</strong> {{ luta.evento.nome }}</p>
-<p><strong>Data:</strong> {{ luta.evento.data|date:"d/m/Y H:i" }}</p>
-<p><strong>Local:</strong> {{ luta.evento.local }}</p>
+<!-- Container Principal -->
+<div class="container">
+    <h1 class="titulo-luta">
+        <a href="{% url 'historia_lutadores' %}?lutador={{ luta.lutador1.pk }}" class="link-lutador">{{ luta.lutador1 }}</a> vs 
+        <a href="{% url 'historia_lutadores' %}?lutador={{ luta.lutador2.pk }}" class="link-lutador">{{ luta.lutador2 }}</a>
+    </h1>
+    
+    <!-- Imagem da Luta -->
+    <div class="imagem-luta">
+        {% if luta.foto %}
+            <img src="{{ luta.foto.url }}" alt="Imagem da luta {{ luta.lutador1 }} vs {{ luta.lutador2 }}">
+        {% else %}
+            <img src="{% static 'images/placeholder.png' %}" alt="Imagem padrão">
+        {% endif %}
+    </div>
+    
+    <div class="detalhes-luta">
+        <p><strong>Evento:</strong> {{ luta.evento.nome }}</p>
+        <p><strong>Data:</strong> {{ luta.evento.data|date:"d/m/Y H:i" }}</p>
+        <p><strong>Local:</strong> {{ luta.evento.local }}</p>
 
-<h3>Odds de Aposta</h3>
-<p><strong>{{ luta.lutador1 }}:</strong> {{ odds.lutador1 }}</p>
-<p><strong>{{ luta.lutador2 }}:</strong> {{ odds.lutador2 }}</p>
+        <h3>Odds de Aposta</h3>
+        <p><strong>{{ luta.lutador1 }}:</strong> {{ odds.lutador1 }}</p>
+        <p><strong>{{ luta.lutador2 }}:</strong> {{ odds.lutador2 }}</p>
 
-<h3>Equipe Técnica</h3>
-<a href="{% url 'equipe_tecnica' luta.pk %}">Ver Equipe Técnica</a>
+        <h3>Equipe Técnica</h3>
+        <a href="{% url 'equipe_tecnica' luta.pk %}" class="btn">Ver Equipe Técnica</a>
 
-<h3>Comentários</h3>
-<ul>
-    {% for comentario in luta.comentario_set.all %}
-        <li><strong>{{ comentario.usuario.username }}:</strong> {{ comentario.texto }} ({{ comentario.criado_em|date:"d/m/Y H:i" }})</li>
-    {% endfor %}
-</ul>
+        <h3>Comentários</h3>
+        <ul>
+            {% for comentario in luta.comentario_set.all %}
+                <li><strong>{{ comentario.usuario.username }}:</strong> {{ comentario.texto }} ({{ comentario.criado_em|date:"d/m/Y H:i" }})</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
 {% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Estilos gerais */
+    body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #f7f7f7;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .titulo-luta {
+        font-size: 2.5em;
+        font-weight: bold;
+        color: #8B0000;
+        margin-bottom: 20px;
+    }
+
+    .imagem-luta img {
+        width: 100%;
+        max-width: 600px;
+        border-radius: 15px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+    }
+
+    .detalhes-luta {
+        background-color: white;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+    }
+
+    .detalhes-luta p {
+        font-size: 1.1em;
+        margin: 10px 0;
+    }
+
+    .detalhes-luta h3 {
+        font-size: 1.3em;
+        color: #FF4500;
+        margin-top: 30px;
+    }
+
+    .btn {
+        display: inline-block;
+        background-color: #8B0000;
+        color: white;
+        padding: 12px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+        margin-top: 10px;
+    }
+
+    .btn:hover {
+        background-color: #FF4500;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    ul li {
+        padding: 10px 0;
+        border-bottom: 1px solid #ddd;
+        font-size: 1em;
+    }
+
+    /* Estilos para os links dos lutadores */
+    .link-lutador {
+        color: inherit; /* Usa a cor do texto do elemento pai */
+        text-decoration: none; /* Remove o sublinhado */
+        font-weight: bold;
+    }
+
+    .link-lutador:hover {
+        color: inherit; /* Cor não muda ao passar o mouse */
+        cursor: pointer; /* Mostra o cursor de clique */
+        text-decoration: underline; /* Sublinha o texto apenas quando passar o mouse */
+    }
+
+    /* Responsividade */
+    @media screen and (max-width: 768px) {
+        .titulo-luta {
+            font-size: 2em;
+        }
+
+        .imagem-luta img {
+            max-width: 100%;
+        }
+
+        .detalhes-luta {
+            padding: 15px;
+        }
+    }
+
+</style>
+{% endblock %}
+
+
+
+
+
